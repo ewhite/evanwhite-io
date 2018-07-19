@@ -2,6 +2,12 @@
 <html>
   <head>
     <meta charset="utf-8">
+    <!-- Buefy CSS -->
+    <link rel="stylesheet" href="https://unpkg.com/buefy/lib/buefy.min.css">
+    <!-- Buefy JavaScript -->
+    <script src="https://unpkg.com/buefy"></script>
+    <!-- icons -->
+    <link rel="stylesheet" href="//cdn.materialdesignicons.com/2.0.46/css/materialdesignicons.min.css">
     <meta name="viewport" content="width=device-width,initial-scale=1.0">
     <title>evanwhite-io</title>
   </head>
@@ -9,4 +15,8 @@
     <div id="app"></div>
     <!-- built files will be auto injected -->
   </body>
+  <script>
+    // Global variable
+    Vue.use(Buefy.default)
+  </script>
 </html>
