@@ -1,5 +1,7 @@
 <template>
-  <div class="ball-container" :style="{height: '600px'}">
+  <div
+    :style="{height: '600px'}"
+    class="ball-container">
     <ball
       :title="education.title"
       :content="education.content"
@@ -17,45 +19,41 @@
 </template>
 
 <script>
-  import _ from 'lodash'
-  import UnderConstruction from './common/UnderConstruction.vue'
-  import Ball from './common/balls/Ball.vue'
-  import { createPositionsConstantDiameter, generatePositionForBall } from './common/balls/Position'
-  import UnorderedList from './common/UnorderedList.vue'
+import _ from 'lodash';
+import UnderConstruction from './common/UnderConstruction.vue';
+import Ball from './common/balls/Ball.vue';
+import { createPositionsConstantDiameter, generatePositionForBall } from './common/balls/Position';
+import UnorderedList from './common/UnorderedList.vue';
 
-  const educationPosition = generatePositionForBall()
-  const education = {
-    title: 'Education',
-    content: 'U. of Oklahoma',
-    details: ['B.S. Comp Eng', 'B.A. Math'],
-    position: educationPosition,
-  }
+const educationPosition = generatePositionForBall();
+const education = {
+  title: 'Education',
+  content: 'U. of Oklahoma',
+  details: ['B.S. Comp Eng', 'B.A. Math'],
+  position: educationPosition,
+};
 
-  const languageBallSize = 100
-  const languages = ['Java', 'JS', 'C#', 'C++']
-  const languagePositions = _.tail(createPositionsConstantDiameter(
-    [educationPosition],
-    languageBallSize,
-    languages.length,
-  ))
+const languageBallSize = 100;
+const languages = ['Java', 'JS', 'C#', 'C++'];
+const languagePositions = _.tail(createPositionsConstantDiameter([educationPosition], languageBallSize, languages.length));
 
-  const lanaguageBalls = _.zip(languages, languagePositions).map(([language, position]) => ({
-    title: language,
-    position,
-    size: position.radius * 2,
-  }))
+const lanaguageBalls = _.zip(languages, languagePositions).map(([language, position]) => ({
+  title: language,
+  position,
+  size: position.radius * 2,
+}));
 
-  export default {
-    name: 'AboutMe',
-    components: {UnorderedList, Ball, UnderConstruction},
-    data () {
-      return {
-        education,
-        lanaguageBalls,
-        languageBallSize,
-      }
-    },
-  }
+export default {
+  name: 'AboutMe',
+  components: { UnorderedList, Ball, UnderConstruction },
+  data() {
+    return {
+      education,
+      lanaguageBalls,
+      languageBallSize,
+    };
+  },
+};
 </script>
 
 <style scoped>
