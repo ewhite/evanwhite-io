@@ -1,6 +1,6 @@
 <template>
   <div
-    :style="{height: '600px'}"
+    :style="{height, width}"
     class="ball-container">
     <ball
       :title="education.title"
@@ -19,12 +19,14 @@
 </template>
 
 <script>
+import Vue from 'vue';
 import _ from 'lodash';
 import UnderConstruction from './common/UnderConstruction.vue';
 import Ball from './common/balls/Ball.vue';
 import { createPositionsConstantDiameter, generatePositionForBall } from './common/balls/Position';
 import UnorderedList from './common/UnorderedList.vue';
 
+const startTime = new Date().getTime();
 const educationPosition = generatePositionForBall();
 const education = {
   title: 'Education',
@@ -33,8 +35,8 @@ const education = {
   position: educationPosition,
 };
 
-const languageBallSize = 100;
-const languages = ['Java', 'JS', 'C#', 'C++'];
+const languageBallSize = 95;
+const languages = ['Java', 'JS', 'C#', 'C++', 'MATLAB', 'React', 'Spring', 'Vue', 'Redux'];
 const languagePositions = _.tail(createPositionsConstantDiameter([educationPosition], languageBallSize, languages.length));
 
 const lanaguageBalls = _.zip(languages, languagePositions).map(([language, position]) => ({
@@ -43,15 +45,33 @@ const lanaguageBalls = _.zip(languages, languagePositions).map(([language, posit
   size: position.radius * 2,
 }));
 
+const endTime = new Date().getTime();
+console.log(`calculating locations took: ${endTime - startTime} milliseconds.`);
+
 export default {
   name: 'AboutMe',
   components: { UnorderedList, Ball, UnderConstruction },
   data() {
     return {
+      height: '',
+      width: '',
       education,
       lanaguageBalls,
       languageBallSize,
     };
+  },
+  mounted() {
+    this.setDimensions();
+  },
+  methods: {
+    setDimensions() {
+      const { app } = this.$parent.$refs;
+      const height = app.offsetHeight;
+      const width = app.offsetWidth;
+
+      Vue.set(this, 'height', `${height}px`);
+      Vue.set(this, 'width', `${width}px`);
+    },
   },
 };
 </script>
@@ -60,6 +80,5 @@ export default {
   .ball-container {
     width: 100%;
     position: fixed;
-    border: 1px solid lightblue;
   }
 </style>

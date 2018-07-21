@@ -40,7 +40,10 @@ const centersOverlap = (position1, position2) => {
   return distanceBetween(getCenterOf(position1), getCenterOf(position2)) < minDistance;
 };
 
+let calledXTimes = 0;
 const generateNonOverlapping = (priorPositions, nextDiameter) => {
+  calledXTimes += 1;
+  console.log(`Called generateNonOverlapping ${calledXTimes} time(s).`);
   const potentialPosition = generatePositionForBall(nextDiameter);
   const overlapsNone = priorPositions.every(pos => !centersOverlap(pos, potentialPosition));
   return overlapsNone ? potentialPosition : generateNonOverlapping(priorPositions, nextDiameter);

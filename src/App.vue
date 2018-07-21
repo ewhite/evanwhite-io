@@ -1,11 +1,12 @@
 <template>
-  <div class="box">
-    <div class="row header">
+  <div class="flex-box">
+    <div class="flex-row flex-header">
       <Menu/>
     </div>
     <div
       id="app"
-      class="row content">
+      ref="app"
+      class="flex-row flex-content">
       <router-view/>
     </div>
   </div>
@@ -24,27 +25,28 @@ export default {
   html, body {
     height: 100%;
     margin: 0;
+    padding: 0;
   }
 
-  .box {
+  .flex-box {
     display: flex;
     flex-flow: column;
     height: 100%;
+    padding: 0;
   }
 
-  .box .row {
-    border: 1px dotted gray;
+  .flex-box .flex-row {
   }
 
-  .box .row.header {
+  .flex-box .flex-row.flex-header {
     flex: 0 1 auto;
   }
 
-  .box .row.content {
+  .flex-box .flex-row.flex-content {
     flex: 1 1 auto;
   }
 
-  .box .row.footer {
+  .flex-box .flex-row.footer {
     flex: 0 1 40px;
   }
 
