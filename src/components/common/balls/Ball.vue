@@ -1,6 +1,6 @@
 <template>
   <section
-    :style="{ width: `${size}px`, height: `${size}px`, top: position.top, left: position.left}"
+    :style="{ width: `${size}px`, height: `${size}px`, top: position.topPx, left: position.leftPx}"
     class="stage"
   >
     <figure class="ball bubble">
@@ -16,6 +16,8 @@
 <script>
 import Position from './Position';
 import UnorderedList from '../UnorderedList.vue';
+
+const DEF_DIAMETER = 200;
 
 export default {
   name: 'Ball',
@@ -35,11 +37,11 @@ export default {
     },
     position: {
       type: Object,
-      default: () => Position('auto', 'auto'),
+      default: () => Position(0, 0, DEF_DIAMETER),
     },
     size: {
       type: Number,
-      default: () => 200,
+      default: () => DEF_DIAMETER,
     },
   },
 };
@@ -132,7 +134,6 @@ export default {
   .stage {
     display: inline-block;
     position: absolute;
-    margin: 20px;
     perspective: 1200px;
     perspective-origin: 50% 50%;
   }
