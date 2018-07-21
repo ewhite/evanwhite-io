@@ -8,5 +8,8 @@
   ],
   "parserOptions": {
     "ecmaVersion": 6
+  },
+  "rules": {
+    "implicit-arrow-linebreak": "off"
   }
 }
