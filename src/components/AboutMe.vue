@@ -1,19 +1,16 @@
 <template>
   <div
+    v-if="ready"
     :style="{height, width}"
     class="ball-container">
     <ball
-      :title="education.title"
-      :content="education.content"
-      :details="education.details"
-      :position="education.position"
-    />
-    <ball
-      v-for="languageBall in lanaguageBalls"
-      :key="languageBall.title"
-      :title="languageBall.title"
-      :position="languageBall.position"
-      :size="languageBall.size"
+      v-for="ball in balls"
+      :key="ball.title"
+      :title="ball.title"
+      :content="ball.content"
+      :details="ball.details"
+      :position="ball.position"
+      :size="ball.size"
     />
   </div>
 </template>
@@ -23,42 +20,56 @@ import Vue from 'vue';
 import _ from 'lodash';
 import UnderConstruction from './common/UnderConstruction.vue';
 import Ball from './common/balls/Ball.vue';
-import { createPositionsConstantDiameter, generatePositionForBall } from './common/balls/Position';
+import { Container, createPositions } from './common/balls/Position';
 import UnorderedList from './common/UnorderedList.vue';
 
-const startTime = new Date().getTime();
-const educationPosition = generatePositionForBall();
 const education = {
   title: 'Education',
   content: 'U. of Oklahoma',
   details: ['B.S. Comp Eng', 'B.A. Math'],
-  position: educationPosition,
+  size: 200,
 };
+const languages = ['Java', 'JS', 'C#', 'C++', 'MATLAB']
+  .map(language => ({
+    title: language,
+    size: 95,
+  }));
 
-const languageBallSize = 95;
-const languages = ['Java', 'JS', 'C#', 'C++', 'MATLAB', 'React', 'Spring', 'Vue', 'Redux'];
-const languagePositions = _.tail(createPositionsConstantDiameter([educationPosition], languageBallSize, languages.length));
+const frameworks = ['React', 'Spring', 'Vue', 'Redux']
+  .map(framework => ({
+    title: framework,
+    size: 95,
+  }));
 
-const lanaguageBalls = _.zip(languages, languagePositions).map(([language, position]) => ({
-  title: language,
-  position,
-  size: position.radius * 2,
-}));
-
-const endTime = new Date().getTime();
-console.log(`calculating locations took: ${endTime - startTime} milliseconds.`);
+const balls = [education, ...languages, ...frameworks];
 
 export default {
   name: 'AboutMe',
   components: { UnorderedList, Ball, UnderConstruction },
   data() {
     return {
-      height: '',
-      width: '',
-      education,
-      lanaguageBalls,
-      languageBallSize,
+      height: undefined,
+      width: undefined,
     };
+  },
+  computed: {
+    container() {
+      return Container(this.height, this.width);
+    },
+    ready() {
+      return this.container !== undefined
+        && this.container.height !== undefined
+        && this.container.width !== undefined;
+    },
+    balls() {
+      if (this.ready) {
+        const diameters = balls.map(ball => ball.size);
+        const positions = createPositions([], diameters, this.container);
+        return _.zip(balls, positions)
+          .map(([ball, position]) => Object.assign({}, ball, { position }));
+      }
+      return [];
+    },
   },
   mounted() {
     this.setDimensions();
@@ -69,8 +80,8 @@ export default {
       const height = app.offsetHeight;
       const width = app.offsetWidth;
 
-      Vue.set(this, 'height', `${height}px`);
-      Vue.set(this, 'width', `${width}px`);
+      Vue.set(this, 'height', height);
+      Vue.set(this, 'width', width);
     },
   },
 };
