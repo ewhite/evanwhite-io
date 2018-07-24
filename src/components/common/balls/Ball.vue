@@ -109,6 +109,8 @@ export default {
   }
 
   .ball.bubble {
+    transition: all 0.2s ease-in-out;
+    cursor: pointer;
     background: radial-gradient(
       circle at 50% 55%,
       rgba(240, 245, 255, 0.9),
@@ -116,8 +118,9 @@ export default {
       rgba(225, 238, 255, 0.33) 60%,
       rgba(43, 130, 255, 0.19)
     );
-    -webkit-animation: bubble-anim 2s ease-out infinite;
-    animation: bubble-anim 2s ease-out infinite;
+  }
+  .ball.bubble:hover {
+    transform: scale(1.1);
   }
 
   .ball.bubble:after {
