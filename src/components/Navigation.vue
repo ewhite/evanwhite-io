@@ -1,5 +1,5 @@
 <template>
-  <nav class="navbar is-transparent is-fixed-top">
+  <nav class="navbar is-transparent">
     <div class="navbar-brand">
       <router-link
         id="site-logo"
