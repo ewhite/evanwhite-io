@@ -73,6 +73,7 @@ export default {
   },
   mounted() {
     this.setDimensions();
+    window.addEventListener('resize', _.debounce(this.setDimensions, 400));
   },
   methods: {
     setDimensions() {
