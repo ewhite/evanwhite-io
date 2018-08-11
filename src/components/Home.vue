@@ -35,4 +35,7 @@ export default {
     max-height: 40vh;
     border-radius: 50%;
   }
+  section.hero {
+    text-align: center;
+  }
 </style>
