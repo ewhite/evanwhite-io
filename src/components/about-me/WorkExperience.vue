@@ -9,7 +9,10 @@
         class="card-header">
         <div class="card-header-title columns is-marginless">
           <div class="column">
-            <span class="has-text-weight-bold has-text-primary">{{ jobTitle }}</span>, {{ companyName }}
+            <span class="has-text-weight-bold has-text-primary">
+              {{ jobTitle }}
+            </span>
+            , {{ companyName }}
           </div>
           <div class="column is-narrow">
             <span class="is-pulled-right">{{ startDate }} - {{ endDate }}</span>
@@ -25,7 +28,9 @@
         <div class="content">
           {{ summary }}
           <ul>
-            <li v-for="detail in details">{{ detail }}</li>
+            <li
+              v-for="detail in details"
+              :key="detail">{{ detail }}</li>
           </ul>
         </div>
       </div>
@@ -35,7 +40,6 @@
         <div class="card-footer-item">{{ footer }}</div>
       </footer>
     </b-collapse>
-
   </li>
 </template>
 
@@ -43,14 +47,38 @@
 export default {
   name: 'WorkExperience',
   props: {
-    jobTitle: String,
-    companyName: String,
-    startDate: String,
-    endDate: String,
-    summary: String,
-    details: Array,
-    footer: String,
-    open: Boolean,
+    jobTitle: {
+      type: String,
+      default: '',
+    },
+    companyName: {
+      type: String,
+      default: '',
+    },
+    startDate: {
+      type: String,
+      default: '',
+    },
+    endDate: {
+      type: String,
+      default: '',
+    },
+    summary: {
+      type: String,
+      default: '',
+    },
+    details: {
+      type: Array,
+      default: () => ([]),
+    },
+    footer: {
+      type: String,
+      default: '',
+    },
+    open: {
+      type: Boolean,
+      default: false,
+    },
   },
 };
 </script>
